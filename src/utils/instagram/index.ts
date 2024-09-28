@@ -47,8 +47,8 @@ export const fetchAvatarData = async (data: string) => {
   const avatarUrl = $('meta[property="og:image"]').attr("content") || "";
   const avatarBase64 = avatarUrl ? await fetchAvatarBase64(avatarUrl) : "";
 
-  const isVerified = $('span[title="Verified"]').length > 0;
-
+  const isVerified = $('title').text().includes('Verified');
+  
   return { $, avatarUrl, avatarBase64, isVerified };
 };
 

@@ -21,7 +21,7 @@ router.get("/:username", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Meta description não encontrada" });
     }
 
-    const { followers, following, posts, name, handle, bio } =
+    const { followers, following, posts: postsCount, name, handle, bio } =
       parseMetaDescription(metaDescription);
 
     res.json({
@@ -29,7 +29,7 @@ router.get("/:username", async (req: Request, res: Response) => {
       name,
       followers,
       following,
-      posts,
+      postsCount,
       bio,
       avatar: {
         url: avatarUrl,
