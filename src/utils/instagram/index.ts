@@ -46,7 +46,10 @@ export const fetchAvatarData = async (data: string) => {
   const $ = cheerio.load(data);
   const avatarUrl = $('meta[property="og:image"]').attr("content") || "";
   const avatarBase64 = avatarUrl ? await fetchAvatarBase64(avatarUrl) : "";
-  return { $, avatarUrl, avatarBase64 };
+
+  const isVerified = $('span[title="Verified"]').length > 0;
+
+  return { $, avatarUrl, avatarBase64, isVerified };
 };
 
 const convertToNumber = (text: string): number => {

@@ -13,7 +13,7 @@ router.get("/:username", async (req: Request, res: Response) => {
 
   try {
     const data = await fetchInstagramData(username);
-    const { $, avatarUrl, avatarBase64 } = await fetchAvatarData(data);
+    const { $, avatarUrl, avatarBase64, isVerified } = await fetchAvatarData(data);
 
     const metaDescription = extractMetaDescription($);
 
@@ -23,6 +23,7 @@ router.get("/:username", async (req: Request, res: Response) => {
 
     const { followers, following, posts, name, handle, bio } =
       parseMetaDescription(metaDescription);
+
     res.json({
       username: handle,
       name,
@@ -36,6 +37,7 @@ router.get("/:username", async (req: Request, res: Response) => {
           ? `data:image/jpeg;base64,${avatarBase64}`
           : "Erro ao obter avatar",
       },
+      verified: isVerified,
     });
   } catch (error) {
     console.error(error);
