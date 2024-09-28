@@ -42,17 +42,16 @@ export const fetchAvatarBase64 = async (avatarUrl: string): Promise<string> => {
   }
 };
 
+// Not Working LOL
 export const fetchAvatarData = async (data: string) => {
   const $ = cheerio.load(data);
   const avatarUrl = $('meta[property="og:image"]').attr("content") || "";
   const avatarBase64 = avatarUrl ? await fetchAvatarBase64(avatarUrl) : "";
 
-  const isVerified = $('.x9f619 svg[aria-label="Verified"]').length > 0;
+  const isVerified = $('div:has(svg[aria-label="Verified"])').length > 0;
 
   return { $, avatarUrl, avatarBase64, isVerified };
 };
-
-
 
 const convertToNumber = (text: string): number => {
   const numberText = text.replace(/[KMB]/, (match) => {
