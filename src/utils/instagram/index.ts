@@ -47,10 +47,12 @@ export const fetchAvatarData = async (data: string) => {
   const avatarUrl = $('meta[property="og:image"]').attr("content") || "";
   const avatarBase64 = avatarUrl ? await fetchAvatarBase64(avatarUrl) : "";
 
-  const isVerified = $('title').text().includes('Verified');
-  
+  const isVerified = $('.x9f619 svg[aria-label="Verified"]').length > 0;
+
   return { $, avatarUrl, avatarBase64, isVerified };
 };
+
+
 
 const convertToNumber = (text: string): number => {
   const numberText = text.replace(/[KMB]/, (match) => {
